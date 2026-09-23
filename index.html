@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ZIVA | Descobertas Inteligentes</title>
+  <meta name="description" content="Achadinhos úteis, produtos curiosos e descobertas que realmente valem a pena.">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #f7f8fa;
+      --card: #ffffff;
+      --text: #111827;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --accent: #111827;
+      --accent-hover: #000000;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    /* HEADER */
+    header {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .header-inner {
+      max-width: 1180px;
+      margin: auto;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -1.5px;
+    }
+
+    .brand-text {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .menu-btn {
+      border: 1px solid var(--border);
+      background: #fff;
+      padding: 9px 13px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    /* HERO */
+    .hero {
+      max-width: 1180px;
+      margin: auto;
+      padding: 65px 20px 45px;
+    }
+
+    .hero-label {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .hero h1 {
+      font-size: clamp(38px, 7vw, 68px);
+      line-height: 1;
+      letter-spacing: -3px;
+      max-width: 800px;
+      margin-bottom: 18px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 650px;
+      margin-bottom: 30px;
+    }
+
+    .search {
+      max-width: 650px;
+      position: relative;
+    }
+
+    .search input {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: #fff;
+      padding: 17px 20px;
+      border-radius: 14px;
+      outline: none;
+      font-size: 16px;
+    }
+
+    .search input:focus {
+      border-color: #9ca3af;
+    }
+
+    /* CONTENT */
+    main {
+      max-width: 1180px;
+      margin: auto;
+      padding: 0 20px 70px;
+    }
+
+    .section {
+      margin-top: 35px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 18px;
+    }
+
+    .section h2 {
+      font-size: 25px;
+      letter-spacing: -0.7px;
+    }
+
+    .section-description {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* CATEGORIES */
+    .categories {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 5px;
+      scrollbar-width: none;
+    }
+
+    .categories::-webkit-scrollbar {
+      display: none;
+    }
+
+    .category-btn {
+      white-space: nowrap;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text);
+      padding: 10px 15px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .category-btn:hover,
+    .category-btn.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    /* PRODUCTS */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .product-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.07);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 230px;
+      background: #f0f1f3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #9ca3af;
+      font-size: 14px;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .product-info {
+      padding: 18px;
+    }
+
+    .product-category {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 7px;
+    }
+
+    .product-name {
+      font-size: 19px;
+      font-weight: 800;
+      margin-bottom: 7px;
+    }
+
+    .product-description {
+      color: var(--muted);
+      font-size: 14px;
+      min-height: 43px;
+      margin-bottom: 16px;
+    }
+
+    .product-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .view-btn {
+      width: 100%;
+      border: 0;
+      background: var(--accent);
+      color: #fff;
+      padding: 13px 15px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .view-btn:hover {
+      background: var(--accent-hover);
+    }
+
+    .empty {
+      display: none;
+      padding: 35px;
+      text-align: center;
+      color: var(--muted);
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+    }
+
+    /* MODAL */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 100;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-box {
+      background: #fff;
+      width: 100%;
+      max-width: 520px;
+      max-height: 90vh;
+      overflow-y: auto;
+      border-radius: 20px;
+      position: relative;
+      padding: 22px;
+    }
+
+    .close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      border: 0;
+      background: #f3f4f6;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .modal-image {
+      width: 100%;
+      height: 280px;
+      border-radius: 14px;
+      background: #f0f1f3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .modal-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .modal h2 {
+      font-size: 27px;
+      margin-bottom: 8px;
+    }
+
+    .modal-category {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 14px;
+    }
+
+    .modal-description {
+      color: #4b5563;
+      margin-bottom: 20px;
+    }
+
+    .affiliate-note {
+      color: #9ca3af;
+      font-size: 11px;
+      margin-top: 13px;
+      text-align: center;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      background: #fff;
+    }
+
+    .footer-inner {
+      max-width: 1180px;
+      margin: auto;
+      padding: 35px 20px;
+      display: flex;
+      justify-content: space-between;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .footer-brand strong {
+      font-size: 24px;
+    }
+
+    .footer-brand p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 5px;
+    }
+
+    .socials {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .socials a {
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .footer-bottom {
+      max-width: 1180px;
+      margin: auto;
+      padding: 0 20px 30px;
+      color: #9ca3af;
+      font-size: 11px;
+    }
+
+    /* MOBILE */
+    @media (max-width: 800px) {
+      .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .product-image {
+        height: 190px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .header-inner {
+        padding: 15px;
+      }
+
+      .brand-text {
+        display: none;
+      }
+
+      .hero {
+        padding: 45px 15px 30px;
+      }
+
+      .hero h1 {
+        letter-spacing: -2px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      main {
+        padding: 0 15px 50px;
+      }
+
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .product-image {
+        height: 240px;
+      }
+
+      .footer-inner {
+        padding: 30px 15px;
+      }
+
+      .footer-bottom {
+        padding: 0 15px 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <div class="logo">ZIVA</div>
+        <div class="brand-text">Descobertas inteligentes.</div>
+      </div>
+
+      <button class="menu-btn" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})">
+        Menu
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="hero-label">ZIVA • DESCOBERTAS INTELIGENTES</span>
+
+    <h1>Encontre seu próximo achado.</h1>
+
+    <p>
+      Produtos úteis, curiosos e práticos selecionados pela ZIVA.
+    </p>
+
+    <div class="search">
+      <input
+        type="search"
+        id="searchInput"
+        placeholder="Pesquisar produto..."
+        oninput="renderProducts()"
+      >
+    </div>
+  </section>
+
+  <main>
+
+    <!-- CATEGORIAS -->
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <h2>Categorias</h2>
+        </div>
+      </div>
+
+      <div class="categories">
+        <button class="category-btn active" onclick="filterCategory('Todos', this)">Todos</button>
+        <button class="category-btn" onclick="filterCategory('Casa', this)">Casa</button>
+        <button class="category-btn" onclick="filterCategory('Cozinha', this)">Cozinha</button>
+        <button class="category-btn" onclick="filterCategory('Roupas', this)">Roupas</button>
+        <button class="category-btn" onclick="filterCategory('Pets', this)">Pets</button>
+        <button class="category-btn" onclick="filterCategory('Tecnologia', this)">Tecnologia</button>
+        <button class="category-btn" onclick="filterCategory('Organização', this)">Organização</button>
+        <button class="category-btn" onclick="filterCategory('Utilidades', this)">Utilidades</button>
+      </div>
+    </section>
+
+    <!-- DESTAQUES -->
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <h2>Achados em destaque 👀</h2>
+          <div class="section-description">
+            Produtos selecionados pela ZIVA.
+          </div>
+        </div>
+      </div>
+
+      <div class="products-grid" id="featuredProducts"></div>
+    </section>
+
+    <!-- NOVOS ACHADOS -->
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <h2>Novos achados</h2>
+          <div class="section-description">
+            As descobertas adicionadas mais recentemente.
+          </div>
+        </div>
+      </div>
+
+      <div class="products-grid" id="newProducts"></div>
+
+      <div class="empty" id="emptyMessage">
+        Nenhum produto encontrado.
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL -->
+  <div class="modal" id="productModal">
+    <div class="modal-box">
+
+      <button class="close" onclick="closeModal()">×</button>
+
+      <div class="modal-image" id="modalImage"></div>
+
+      <h2 id="modalName"></h2>
+
+      <div class="modal-category" id="modalCategory"></div>
+
+      <div class="modal-description" id="modalDescription"></div>
+
+      <a
+        id="modalLink"
+        class="view-btn"
+        href="#"
+        target="_blank"
+        rel="nofollow sponsored noopener"
+      >
+        Ver produto no Mercado Livre →
+      </a>
+
+      <div class="affiliate-note">
+        Este site pode receber comissão por compras realizadas através dos links.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+
+      <div class="footer-brand">
+        <strong>ZIVA</strong>
+        <p>Descobertas inteligentes.</p>
+      </div>
+
+      <div class="socials">
+        <!-- TROQUE OS # PELOS LINKS OFICIAIS DA ZIVA -->
+        <a href="#" target="_blank">Instagram</a>
+        <a href="#" target="_blank">TikTok</a>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      Os produtos apresentados podem ser encontrados em plataformas de terceiros.
+      <br><br>
+      Alguns links podem gerar comissão para a ZIVA.
+    </div>
+  </footer>
+
+  <script>
+
+    /*
+    ============================================================
+    BANCO DE PRODUTOS DA ZIVA
+    ============================================================
+
+    Para adicionar um produto no futuro, copie um bloco e altere
+    os campos.
+
+    CAMPOS:
+
+    nome
+    categoria
+    descricao
+    imagem
+    link_afiliado
+    data_adicionado
+    destaque
+    preco
+    status
+
+    status:
+    "ativo" = aparece no site
+    "inativo" = não aparece
+
+    destaque:
+    true = aparece em "Achados em destaque"
+    false = não aparece
+    */
+
+    const produtos = [
+
+      {
+        nome: "Removedor de pelos de pets",
+        categoria: "Pets",
+        descricao: "Uma ferramenta prática para ajudar na remoção de pelos de pets de diferentes superfícies.",
+        imagem: "",
+        link_afiliado: "https://meli.la/26FpfBk",
+        data_adicionado: "2026-09-22",
+        destaque: true,
+        preco: "",
+        status: "ativo"
+      },
+
+      {
+        nome: "Papa-bolinhas elétrico",
+        categoria: "Roupas",
+        descricao: "Ajuda a remover aquelas bolinhas que aparecem nas roupas.",
+        imagem: "",
+        link_afiliado: "https://meli.la/2brXpX5",
+        data_adicionado: "2026-09-22",
+        destaque: true,
+        preco: "",
+        status: "ativo"
+      },
+
+      {
+        nome: "Mini selador",
+        categoria: "Cozinha",
+        descricao: "Uma solução compacta para ajudar a fechar embalagens e conservar produtos.",
+        imagem: "",
+        link_afiliado: "https://meli.la/32LYVWg",
+        data_adicionado: "2026-09-22",
+        destaque: true,
+        preco: "",
+        status: "ativo"
+      }
+
+    ];
+
+    let categoriaAtual = "Todos";
+
+    function criarCard(produto) {
+
+      const imagem = produto.imagem
+        ? `<img src="${produto.imagem}" alt="${produto.nome}" loading="lazy">`
+        : `<span>Imagem do produto</span>`;
+
+      return `
+        <article class="product-card">
+
+          <div class="product-image">
+            ${imagem}
+          </div>
+
+          <div class="product-info">
+
+            <div class="product-category">
+              ${produto.categoria}
+            </div>
+
+            <div class="product-name">
+              ${produto.nome}
+            </div>
+
+            <div class="product-description">
+              ${produto.descricao}
+            </div>
+
+            <div class="product-actions">
+
+              <button
+                class="view-btn"
+                onclick="openModal('${produto.nome.replace(/'/g, "\\'")}')"
+              >
+                Ver no Mercado Livre →
+              </button>
+
+            </div>
+
+          </div>
+
+        </article>
+      `;
+    }
+
+    function produtosFiltrados() {
+
+      const pesquisa = document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
+
+      return produtos
+        .filter(p => p.status === "ativo")
+        .filter(p => categoriaAtual === "Todos" || p.categoria === categoriaAtual)
+        .filter(p =>
+          p.nome.toLowerCase().includes(pesquisa) ||
+          p.descricao.toLowerCase().includes(pesquisa) ||
+          p.categoria.toLowerCase().includes(pesquisa)
+        )
+        .sort((a, b) =>
+          new Date(b.data_adicionado) - new Date(a.data_adicionado)
+        );
+    }
+
+    function renderProducts() {
+
+      const filtrados = produtosFiltrados();
+
+      const pesquisa =
+        document.getElementById("searchInput").value.trim();
+
+      const featured = filtrados.filter(p => p.destaque);
+
+      const newProducts = filtrados;
+
+      const featuredContainer =
+        document.getElementById("featuredProducts");
+
+      const newContainer =
+        document.getElementById("newProducts");
+
+      const empty =
+        document.getElementById("emptyMessage");
+
+      /*
+      Quando estiver pesquisando ou filtrando categoria,
+      a seção de destaques mostra somente os resultados
+      correspondentes.
+      */
+
+      featuredContainer.innerHTML =
+        featured.length
+          ? featured.map(criarCard).join("")
+          : "";
+
+      newContainer.innerHTML =
+        newProducts.map(criarCard).join("");
+
+      empty.style.display =
+        !newProducts.length ? "block" : "none";
+
+      /*
+      Se não houver pesquisa nem filtro, os destaques aparecem
+      normalmente e os novos achados mostram todos os produtos.
+      */
+
+    }
+
+    function filterCategory(category, button) {
+
+      categoriaAtual = category;
+
+      document
+        .querySelectorAll(".category-btn")
+        .forEach(btn => btn.classList.remove("active"));
+
+      button.classList.add("active");
+
+      renderProducts();
+    }
+
+    function openModal(nome) {
+
+      const produto =
+        produtos.find(p => p.nome === nome);
+
+      if (!produto) return;
+
+      const modal =
+        document.getElementById("productModal");
+
+      const modalImage =
+        document.getElementById("modalImage");
+
+      if (produto.imagem) {
+        modalImage.innerHTML =
+          `<img src="${produto.imagem}" alt="${produto.nome}">`;
+      } else {
+        modalImage.innerHTML =
+          `<span>Imagem do produto</span>`;
+      }
+
+      document.getElementById("modalName").textContent =
+        produto.nome;
+
+      document.getElementById("modalCategory").textContent =
+        produto.categoria;
+
+      document.getElementById("modalDescription").textContent =
+        produto.descricao;
+
+      document.getElementById("modalLink").href =
+        produto.link_afiliado;
+
+      modal.classList.add("show");
+    }
+
+    function closeModal() {
+      document
+        .getElementById("productModal")
+        .classList.remove("show");
+    }
+
+    document
+      .getElementById("productModal")
+      .addEventListener("click", function(event) {
+
+        if (event.target === this) {
+          closeModal();
+        }
+
+      });
+
+    /*
+    Inicializa o site
+    */
+    renderProducts();
+
+  </script>
+
+</body>
+      </html>
