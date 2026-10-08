@@ -3,7 +3,7 @@ const produtos = [
         nome: "Organizador giratório de temperos",
         categoria: "Cozinha",
         descricao: "Organizador preto com frascos horizontais e tampas dosadoras. Confira os detalhes e condições no anúncio.",
-        imagem: "organizador-temperos.svg",
+        imagem: "ziva_porta_temperos_capa.jpg",
         link: "https://meli.la/2SotgFz"
       },
       {
